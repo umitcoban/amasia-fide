@@ -1,53 +1,64 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-
+import { useState } from "react";
+import { AiOutlineSearch, AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart, AiOutlineMenu } from "react-icons/ai";
 const Navbar: React.FC = () => {
 
-    const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-      const handleResize = () => {
-        if (window.innerWidth > 768 && open) {
-          setOpen(false);
-        }
-      };
-      window.addEventListener('resize', handleResize);
-  
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, [open]);
-
-    const toggleNavbar = () => {
-        setOpen(!open);
-      };
-
-    return (
-        <>
-            <nav className="flex items-center justify-between flex-wrap w-full">
-                <div className="flex items-center flex-wrap text-black mr-5 ps-7 pt-5 mb-5">
-                    <p className="text-center text-3xl font-semibold tracking-wide hover:text-green-800 cursor-pointer">Amasia Fide</p>
-                </div>
-                <div className="block lg:hidden me-4">
-                    <button className="flex items-center px-3 py-2 border rounded text-black border-blue-400 hover:text-green-800 hover:border-green-800" onClick={toggleNavbar}>
-                        <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <title>Menu</title>
-                            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-                        </svg>
-                    </button>
-                </div>
-                <div className={`w-full block flex-grow lg:flex lg:items-center lg:justify-end lg:w-auto ${open ? 'opacity-100' : 'opacity-0 hidden'} transition-all ease-in`}>
-                    <div className="text-lg text-center">
-                            <Link href="/" className="font-semibold cursor-pointer me-10 hover:text-green-800 block mt-4 lg:inline-block lg:mt-0 mr-4">Home</Link>
-                            <Link href="/" className="font-semibold cursor-pointer me-10 hover:text-green-800 block mt-4 lg:inline-block lg:mt-0 mr-4">Home</Link>
-                            <Link href="/" className="font-semibold cursor-pointer me-10 hover:text-green-800 block mt-4 lg:inline-block lg:mt-0 mr-4">Home</Link>
-                            <Link href="/" className="font-semibold cursor-pointer me-10 hover:text-green-800 block mt-4 lg:inline-block lg:mt-0 mr-4">Home</Link>
-                    </div>
-                </div>
-            </nav>
-        </>
-    )
+  return (
+    <>
+      <nav className="container flex justify-between items-center content-between space-x-20 uppercase">
+        <div className="flex space-x-16 items-center text-primary-black text-3xl m-5 lg:ms-12 w-auto font-inter font-bold">
+          <Link href="/" className="transition delay-150 text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-green-900
+            ease-linear hover:border-b pb-2 hover:border-primary-gray text-center lg:hover:scale-105">Amasia Fide</Link>
+        </div>
+        <div className="flex items-center pe-10 lg:hidden text-2xl hover:text-primary-green transition ease-in-out duration-75">
+          <button onClick={() => setIsOpen(!isOpen)}> <AiOutlineMenu /> </button>
+        </div>
+        <div className={`hidden lg:flex item-center justify-items-center 
+            justify-end font-inter font-semibold lg:space-x-8 md:space-x-1 md:pe-7 ${isOpen ? 'block': ''}`}>
+          <Link href="/" className="transition delay-150 hover:text-primary-green 
+            ease-linear hover:border-b hover:border-primary-gray 
+            text-center">Mağaza</Link>
+          <div className="inline">
+            <select id="cars" className="font-inter outline-1 outline-dashed text-center cursor-
+            pointer rounded-full w-44 uppercase font-semibold">
+              <option selected className="m-2">Kategoriler</option>
+              <option>Test1</option>
+              <option>Test2</option>
+              <option>Test3</option>
+              <option>Test4</option>
+              <option>Test5</option>
+            </select>
+          </div>
+          <Link href="/" className="transition delay-150 hover:text-primary-green 
+            ease-linear hover:border-b hover:border-primary-gray 
+            text-center">hakkımızda</Link>
+          <div className="flex lg:border-e-2 lg:border-s-2 text-center">
+            <input type="text" className="w-full border text-center md:ms-3 md:w-full sm:w-full border-gray-400 rounded-md text-sm focus:outline-teal-600" placeholder="This is placeholder" />
+            <button type="button" className="rounded text-center border items-center me-3 ms-2 w-10 hover:bg-primary-green transition
+              duration-75 hover:text-white">
+              <AiOutlineSearch className="mx-auto" />
+            </button>
+          </div>
+          <div className="flex text-center space-x-3">
+            <button type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
+              duration-75 hover:text-white">
+              <AiOutlineHeart className="mx-auto" />
+            </button>
+            <button type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
+              duration-75 hover:text-white">
+              <AiOutlineUser className="mx-auto" />
+            </button>
+            <button type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
+              duration-75 hover:text-white">
+              <AiOutlineShoppingCart className="mx-auto" />
+            </button>
+          </div>
+        </div>
+      </nav>
+    </>
+  )
 }
 
 export default Navbar;
