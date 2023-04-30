@@ -1,9 +1,14 @@
 import Link from "next/link";
-import { useState } from "react";
-import { AiOutlineSearch, AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart, AiOutlineMenu } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import { AiOutlineSearch, AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart, AiOutlineMenu, AiOutlineMenuFold} from "react-icons/ai";
 const Navbar: React.FC = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const handlerMenuClick = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen);
+  }
 
   return (
     <>
@@ -13,10 +18,10 @@ const Navbar: React.FC = () => {
             ease-linear hover:border-b pb-2 hover:border-primary-gray text-center lg:hover:scale-105">Amasia Fide</Link>
         </div>
         <div className="flex items-center pe-10 lg:hidden text-2xl hover:text-primary-green transition ease-in-out duration-75">
-          <button onClick={() => setIsOpen(!isOpen)}> <AiOutlineMenu /> </button>
+          <button onClick={handlerMenuClick}> { isOpen ?  <AiOutlineMenuFold /> : <AiOutlineMenu /> } </button>
         </div>
         <div className={`hidden lg:flex item-center justify-items-center 
-            justify-end font-inter font-semibold lg:space-x-8 md:space-x-1 md:pe-7 ${isOpen ? 'block': ''}`}>
+            justify-end font-inter font-semibold lg:space-x-8 md:space-x-1 md:pe-7`}>
           <Link href="/" className="transition delay-150 hover:text-primary-green 
             ease-linear hover:border-b hover:border-primary-gray 
             text-center">Mağaza</Link>
@@ -57,6 +62,50 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </nav>
+      <nav className="lg:hidden flex-1 container items-center justify-center uppercase">
+        <div className={`${isOpen ? 'block' : '-translate-y-96 absolute'} w-full items-center 
+          text-center transition duration-500 ease-in-out font-inter font-semibold text-lg`}>
+          <div className="border-2 shadow space-y-3 mb-2">
+            <Link href="/" className="transition delay-150 hover:text-primary-green 
+            ease-linear hover:border-b hover:border-primary-gray 
+            text-center">Mağaza</Link>
+          </div>
+          <div className="border-2 shadow space-y-3 mb-2">
+            <Link href="/" className="transition delay-150 hover:text-primary-green 
+            ease-linear hover:border-b hover:border-primary-gray 
+            text-center">Hakkımızda</Link>
+          </div>
+          <div className="border-2 shadow space-y-3 mb-2">
+            <div className="inline">
+              <select id="cars" className="font-inter outline-none text-center cursor-
+            pointer rounded-full w-44 font-semibold uppercase">
+                <option selected className="m-2">Kategoriler</option>
+                <option>Test1</option>
+                <option>Test2</option>
+                <option>Test3</option>
+                <option>Test4</option>
+                <option>Test5</option>
+              </select>
+            </div>
+          </div>
+          <div className="border-2 shadow text-center items-center">
+            <div className="flex text-center space-x-5 shadow items-center justify-center">
+              <button type="button" className="rounded text-center border items-center w-20 h-14 hover:bg-primary-green transition
+              duration-75 hover:text-white">
+                <AiOutlineHeart className="mx-auto" />
+              </button>
+              <button type="button" className="rounded text-center border items-center w-20 h-14 hover:bg-primary-green transition
+              duration-75 hover:text-white">
+                <AiOutlineUser className="mx-auto" />
+              </button>
+              <button type="button" className="rounded text-center border items-center w-20 h-14 hover:bg-primary-green transition
+              duration-75 hover:text-white">
+                <AiOutlineShoppingCart className="mx-auto" />
+              </button>
+            </div>
+          </div>
+        </div>
+    </nav >
     </>
   )
 }
