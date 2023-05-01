@@ -23,6 +23,10 @@ module.exports = {
         'primary-green': '#88AB59',
         'primary-gray': '#C9C4C4',
         'secondary-gray': '#E9E9E9' 
+      },
+      spacing:{
+        '128': '32rem',
+        '144': '36rem'
       }
     },
   },

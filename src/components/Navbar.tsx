@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
       <nav className="container flex justify-between items-center content-between space-x-20 uppercase">
         <div className="flex space-x-16 items-center text-primary-black text-3xl m-5 lg:ms-12 w-auto font-inter font-bold">
           <Link href="/" className="transition delay-150 text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-green-900
-            ease-linear hover:border-b pb-2 hover:border-primary-gray text-center lg:hover:scale-105">Amasia Fide</Link>
+            ease-linear hover:border-b pb-2 hover:border-primary-gray text-center lg:hover:scale-105 whitespace-break-spaces">Amasia Fide</Link>
         </div>
         <div className="flex items-center pe-10 lg:hidden text-2xl hover:text-primary-green transition ease-in-out duration-75">
           <button onClick={handlerMenuClick}> { isOpen ?  <AiOutlineMenuFold /> : <AiOutlineMenu /> } </button>

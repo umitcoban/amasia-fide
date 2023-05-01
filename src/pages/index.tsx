@@ -1,12 +1,22 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+/* eslint-disable @next/next/no-img-element */
+// eslint-disable-next-line @next/next/no-img-element
 
-const inter = Inter({ subsets: ['latin'] })
+import AboutUs from "@/components/HomePage/AboutUs";
+import CTA from "@/components/HomePage/CTA";
+import Heros from "@/components/HomePage/Heros";
+import Statistic from "@/components/HomePage/Statistic";
+import Testimonials from "@/components/HomePage/Testimonials";
+import ScrollButton from "@/components/UI/ScrollButton";
 
+// eslint-disable-next-line @next/next/no-img-element
 export default function Home() {
   return (
-    <div>
-      <h1>WelCome</h1>
-    </div>
+    <>
+        <Heros />
+        <AboutUs />
+        <CTA />
+        <Statistic />
+        <Testimonials />
+    </>
   )
 }

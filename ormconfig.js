@@ -5,7 +5,7 @@ module.exports = {
     username: process.env.NEXT_PUBLIC_USERNAME,
     password: process.env.NEXT_PUBLIC_PASS,
     database: process.env.NEXT_PUBLIC_DB,
-    synchronize: false,
+    synchronize: true,
     logging: true,
     entities: ['src/entities/*.entity.ts'],
     subscribers: [],

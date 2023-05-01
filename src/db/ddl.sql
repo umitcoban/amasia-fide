@@ -191,10 +191,6 @@ create table order_details
     updated_at      timestamp        not null default (current_timestamp)
 );
 
-
-select *
-from products;
-
 create or replace function update_updated_at_column()
     returns trigger
 as
