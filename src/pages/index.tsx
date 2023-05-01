@@ -6,6 +6,7 @@ import CTA from "@/components/HomePage/CTA";
 import Heros from "@/components/HomePage/Heros";
 import Statistic from "@/components/HomePage/Statistic";
 import Testimonials from "@/components/HomePage/Testimonials";
+import ProductList from "@/components/Products/ProductList";
 import ScrollButton from "@/components/UI/ScrollButton";
 
 // eslint-disable-next-line @next/next/no-img-element
@@ -17,6 +18,7 @@ export default function Home() {
         <CTA />
         <Statistic />
         <Testimonials />
+        <ProductList />
     </>
   )
 }
