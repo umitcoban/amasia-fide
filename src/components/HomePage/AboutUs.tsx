@@ -4,7 +4,7 @@
 export default function AboutUs() {
     return (
         <section>
-            <div className='flex container mt:20 mb-32 lg:mt-0 h-56 lg:h-144 w-full font-inter items-center'>
+            <div className='flex container mt:20 mb-32 lg:mb-24 lg:mt-0 h-56 lg:h-144 w-full font-inter items-center'>
                 <div className='w-full flex flex-col lg:flex-row items-center justify-center lg:space-x-20'>
                     <div className='hidden items-center text-center lg:w-1/2 lg:flex'>
                         <img src='https://purepng.com/public/uploads/large/11232131312312-eke.png'

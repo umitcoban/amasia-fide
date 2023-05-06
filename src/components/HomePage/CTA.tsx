@@ -1,8 +1,13 @@
+import { FaWarehouse, FaMotorcycle } from "react-icons/fa";
+
 const CTA = () => {
     return (
         <section className="bg-white dark:bg-gray-900 font-inter mt-48 lg:mt-4">
             <div className="grid grid-cols-1 gap-8 px-4 py-12 mx-auto lg:grid-cols-2">
                 <div className="flex flex-col items-center max-w-lg mx-auto text-center">
+                    <h2 className="text-4xl mb-1 text-primary-green">
+                        <FaWarehouse />
+                    </h2>
                     <h2 className="text-3xl font-semibold tracking-tight text-gray-800 dark:text-white">
                         Tedarikçi Olun
                     </h2>
@@ -15,6 +20,9 @@ const CTA = () => {
                 </div>
 
                 <div className="flex flex-col items-center max-w-lg mx-auto text-center">
+                    <h2 className="text-4xl mb-1 text-teal-800">
+                        <FaMotorcycle />
+                    </h2>
                     <h2 className="text-3xl font-semibold tracking-tight text-gray-800 dark:text-white">
                         Taşıyıcı Olun
                     </h2>

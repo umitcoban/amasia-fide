@@ -4,7 +4,7 @@ const Testimonials = () => {
         <section className="bg-white dark:bg-gray-900 font-inter">
             <div className="container px-6 py-10 mx-auto">
                 <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
-                    <span className="text-primary-green ">Müşterilerimiz</span> Hakkımızda Ne Düşünüyor?
+                    <span className="text-primary-green ">Müşterilerimiz</span> Hakkımızda Ne Düşünüyor? &#128525;
                 </h1>
 
                 <p className="max-w-2xl mx-auto mt-6 text-center text-gray-500 dark:text-gray-300">

@@ -2,7 +2,7 @@ import {AiOutlineInstagram, AiOutlineFacebook, AiOutlineTwitter} from "react-ico
 
 const Footer = () => {
     return (
-        <footer className="bg-white dark:bg-gray-900 mt-40">
+        <footer className="bg-white dark:bg-gray-900 mt-24 lg:mt-20">
             <div className="container px-6 py-8 mx-auto">
                 <div className="flex flex-col items-center text-center">
                     <a href="#">

@@ -3,11 +3,11 @@
 
 import AboutUs from "@/components/HomePage/AboutUs";
 import CTA from "@/components/HomePage/CTA";
+import Contact from "@/components/HomePage/Contact";
 import Heros from "@/components/HomePage/Heros";
 import Statistic from "@/components/HomePage/Statistic";
 import Testimonials from "@/components/HomePage/Testimonials";
 import ProductList from "@/components/Products/ProductList";
-import ScrollButton from "@/components/UI/ScrollButton";
 
 // eslint-disable-next-line @next/next/no-img-element
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
         <CTA />
         <Statistic />
         <Testimonials />
-        <ProductList />
+        <Contact />
     </>
   )
 }

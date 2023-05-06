@@ -7,7 +7,7 @@ export default function Heros() {
       <div className="mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
         <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
           <h1 className="title-font sm:text-4xl text-3xl mb-4 text-primary-black font-bold">
-            Before they sold out <span className="text-primary-green">readymade gluten</span>
+            Eşsiz coğrafyamızın bize armağanı olan <span className="text-primary-green font-bold">%100 yerli</span> bitkilerinizi yetiştirmeye ne dersiniz?
           </h1>
           <p className="mb-8 leading-relaxed font-semibold">Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.</p>
           <div className="flex justify-center">
