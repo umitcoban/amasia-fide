@@ -1,12 +1,14 @@
+import { StateFromReducersMapObject } from "@reduxjs/toolkit";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {useState } from "react";
+import authReducer from "@/redux/slices/authSlice";
 import { AiOutlineSearch, AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart, AiOutlineMenu, AiOutlineMenuFold } from "react-icons/ai";
+import { useSelector } from "react-redux";
 const Navbar: React.FC = () => {
-
   const [isOpen, setIsOpen] = useState(false);
-
   const router = useRouter();
+  const token = useSelector((state:any) => state.login.token);
 
   const handlerMenuClick = () => {
     setIsOpen(!isOpen);
@@ -55,10 +57,10 @@ const Navbar: React.FC = () => {
               duration-150 hover:text-white hover:scale-110 ">
               <AiOutlineHeart className="mx-auto" />
             </button>
-            <button type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
-              duration-150 hover:text-white hover:scale-110 ">
-              <AiOutlineUser className="mx-auto" />
-            </button>
+            <Link href={`${token ? '/shop' : '/auth'}`} type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
+              duration-150 hover:text-white hover:scale-110">
+              <AiOutlineUser className="mx-auto my-auto pt-1 text-lg font-extrabold" />
+            </Link>
             <button type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
               duration-150 hover:text-white hover:scale-110 ">
               <AiOutlineShoppingCart className="mx-auto" />
@@ -70,7 +72,7 @@ const Navbar: React.FC = () => {
         <div className={`${isOpen ? 'block' : '-translate-y-96 absolute'} w-full items-center 
           text-center transition duration-500 ease-in-out font-inter font-semibold text-lg`}>
           <div className="border-2 shadow space-y-3 mb-2">
-            <Link href="/" className={`transition delay-150 hover:text-primary-green 
+            <Link href="/shop" className={`transition delay-150 hover:text-primary-green 
             ease-linear hover:border-b hover:border-primary-gray 
             text-center ${router.pathname === '/shop' ? 'animate-pulse text-primary-green' : ''}`}>Mağaza</Link>
           </div>
@@ -81,14 +83,14 @@ const Navbar: React.FC = () => {
           </div>
           <div className="border-2 shadow space-y-3 mb-2">
             <div className="inline">
-              <select id="cars" className="font-inter outline-none text-center cursor-
-            pointer rounded-full w-44 font-semibold uppercase">
-                <option selected className="m-2">Kategoriler</option>
-                <option>Test1</option>
-                <option>Test2</option>
-                <option>Test3</option>
-                <option>Test4</option>
-                <option>Test5</option>
+              <select id="categories" className="font-inter outline-none text-center cursor-
+            pointer rounded-full w-44 font-semibold uppercase" defaultValue={"categories"}>
+                <option selected className="m-2" value={"categories"}>Kategoriler</option>
+                <option value={"test1"}>Test1</option>
+                <option value={"test2"}>Test2</option>
+                <option value={"test3"}>Test3</option>
+                <option value={"test4"}>Test4</option>
+                <option value={"test5"}>Test5</option>
               </select>
             </div>
           </div>

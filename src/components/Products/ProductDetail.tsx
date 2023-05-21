@@ -1,8 +1,35 @@
 
 import { AiFillFacebook, AiFillTwitterSquare, AiOutlineWhatsApp, AiFillHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import QTYButton from "../UI/QTYButton";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import DUMMY_PRODUCTS from "@/datas/dummy-data/dummy-products";
+
+interface product {
+    name: string,
+    description: string,
+    price: number,
+    image: string,
+    discount: number
+};
 
 const ProductDetail = () => {
+    const [item, setItem] = useState<product | null>(null);
+    const router = useRouter();
+    const {id} = router.query;
+
+    useEffect(() => {
+        if (typeof id === 'string') {
+            const foundItem = DUMMY_PRODUCTS.find((product, index) => index == Number.parseInt(id));
+            if (foundItem !== undefined) {
+                setItem(foundItem);
+            } else {
+                setItem(null);
+            }
+        } else {
+            // Handle case when id is an array or something else
+        }
+    },[])
 
     return (
         <section className="text-gray-700 body-font overflow-hidden bg-white">
@@ -10,10 +37,10 @@ const ProductDetail = () => {
                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
                     <img alt="ecommerce"
                         className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 hover:scale-110 transition duration-200"
-                        src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg" />
+                        src={item?.image} />
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                        <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
-                        <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">The Catcher in the Rye</h1>
+                        <h2 className="text-sm title-font text-gray-500 tracking-widest">Amasia-Fide</h2>
+                        <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{item?.name}</h1>
                         <div className="flex mb-4">
                             <span className="flex items-center">
                                 {'* * * *'}
@@ -31,7 +58,7 @@ const ProductDetail = () => {
                                 </a>
                             </span>
                         </div>
-                        <p className="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+                        <p className="leading-relaxed">{item?.description}</p>
                         <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                             <div className="flex">
                                 <span className="mr-3">Color</span>
@@ -55,10 +82,10 @@ const ProductDetail = () => {
                             </div>
                         </div>
                         <div className="flex">
-                            <span className="title-font font-medium text-2xl text-gray-900">$58.00</span>
+                            <span className="title-font font-medium text-2xl text-gray-900">${item?.price}</span>
                             <QTYButton />
                         </div>
-                        <div className="flex justify-start items-center space-x-24 mt-8">
+                        <div className="flex justify-center items-center space-x-24 mt-8">
                             <button className="w-36 h-12 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
                                 <AiOutlineShoppingCart className="w-6 h-6" />
                             </button>

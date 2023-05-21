@@ -7,6 +7,7 @@ const ProductList = () => {
                 <div className="grid grid-cols-1 gap-x-12 lg:gap-x-20 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
                     {DUMMY_PRODUCTS.map((product, index) => {
                         return <ProductCard key={index}
+                            id={index}
                             name={product.name}
                             description={product.description}
                             price={product.price}
