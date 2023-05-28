@@ -5,12 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import {validationRules} from "@/utils/validationRules";
+
 
 
 const LoginForm: React.FC = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { errors, handleChange, handleBlur, values } = useFormValidation({ username: '', password: '' })
+    const { errors, handleChange, handleBlur, values } = useFormValidation({username : '', password: ''}, validationRules);
     const [loginError, setLoginError] = useState({ message: '' });
 
     const submitFormHandler = async (event: any) => {
@@ -19,12 +21,13 @@ const LoginForm: React.FC = () => {
             setLoginError({ message: 'invalid username & password' });
             return;
         }
-        if (errors.emailError || errors.passwordError)
+        if (errors.username || errors.password)
             return;
         const data = await login({ username: values.username, password: values.password }).catch((data) => {
             console.log(data);
             setLoginError({ message: data.response.data.message})
         });
+        console.log(data);
         if (data?.token) {
             dispatch(logIn(data.token))
             localStorage.setItem('token', data.token);
@@ -39,23 +42,23 @@ const LoginForm: React.FC = () => {
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                         Username
                     </label>
-                    <input className={`shadow appearance-none border ${errors.emailError && 'border-red-500'} rounded w-full py-2 px-3
+                    <input className={`shadow appearance-none border ${errors.username && 'border-red-500'} rounded w-full py-2 px-3
                      text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                         id="username" type="text"
-                        placeholder="Username" name="username" onChange={handleChange} onBlur={handleBlur} />
-                    {errors.emailError && <p className="text-red-500 text-xs italic">Please choose a email.</p>}
+                        placeholder="Username" name="username" onChange={handleChange} onBlur={handleBlur} value={values.username} />
+                    {errors.username && <p className="text-red-500 text-xs italic">Please choose a email.</p>}
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                         Password
                     </label>
-                    <input className={`shadow appearance-none border ${errors.passwordError && 'border-red-500'} rounded w-full py-2 px-3
+                    <input className={`shadow appearance-none border ${errors.password && 'border-red-500'} rounded w-full py-2 px-3
                      text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
                         id="password"
                         type="password"
                         placeholder="******************"
-                        name="password" onChange={handleChange} onBlur={handleBlur} />
-                    {errors.passwordError && <p className="text-red-500 text-xs italic">Please choose a password.</p>}
+                        name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+                    {errors.password && <p className="text-red-500 text-xs italic">Please choose a password.</p>}
                 </div>
                 <div className="flex items-center justify-between">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
