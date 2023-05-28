@@ -6,7 +6,5 @@ export interface User{
     lastName: string,
     email: string,
     citizenNumber: string,
-    phone: string,
-    createdAt: Date,
-    updatedAt: Date
+    phone: string
 }

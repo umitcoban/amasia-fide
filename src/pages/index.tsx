@@ -7,7 +7,6 @@ import Contact from "@/components/HomePage/Contact";
 import Heros from "@/components/HomePage/Heros";
 import Statistic from "@/components/HomePage/Statistic";
 import Testimonials from "@/components/HomePage/Testimonials";
-import ProductList from "@/components/Products/ProductList";
 
 // eslint-disable-next-line @next/next/no-img-element
 export default function Home() {

@@ -1,3 +1,4 @@
+import useFormValidation from "@/hooks/useFormValidation";
 import { logIn } from "@/redux/slices/authSlice";
 import { login } from "@/services/authService";
 import Link from "next/link";
@@ -5,26 +6,30 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-const LoginForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+
+const LoginForm: React.FC = () => {
     const dispatch = useDispatch();
     const router = useRouter();
+    const { errors, handleChange, handleBlur, values } = useFormValidation({ username: '', password: '' })
+    const [loginError, setLoginError] = useState({ message: '' });
 
     const submitFormHandler = async (event: any) => {
         event.preventDefault();
-        const username = email;
-        const data = await login({username, password}).catch(() => {throw Error("Login Error")});
-        dispatch(logIn(data.token))
-        router.push('shop');
-    }
-
-    const changeEmailHandler = (event: any) => {
-        setEmail(event.target.value);
-    }
-
-    const changePasswordHandler = (event: any) => {
-        setPassword(event.target.value);
+        if (!values.username || !values.username) {
+            setLoginError({ message: 'invalid username & password' });
+            return;
+        }
+        if (errors.emailError || errors.passwordError)
+            return;
+        const data = await login({ username: values.username, password: values.password }).catch((data) => {
+            console.log(data);
+            setLoginError({ message: data.response.data.message})
+        });
+        if (data?.token) {
+            dispatch(logIn(data.token))
+            localStorage.setItem('token', data.token);
+            router.push('shop');
+        }
     }
 
     return (
@@ -34,20 +39,23 @@ const LoginForm = () => {
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                         Username
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                    id="username" type="text" 
-                    placeholder="Username" name="username" onChange={changeEmailHandler} />
+                    <input className={`shadow appearance-none border ${errors.emailError && 'border-red-500'} rounded w-full py-2 px-3
+                     text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                        id="username" type="text"
+                        placeholder="Username" name="username" onChange={handleChange} onBlur={handleBlur} />
+                    {errors.emailError && <p className="text-red-500 text-xs italic">Please choose a email.</p>}
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                         Password
                     </label>
-                    <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
-                    id="password" 
-                    type="password" 
-                    placeholder="******************" 
-                    name="password" onChange={changePasswordHandler}/>
-                    <p className="text-red-500 text-xs italic">Please choose a password.</p>
+                    <input className={`shadow appearance-none border ${errors.passwordError && 'border-red-500'} rounded w-full py-2 px-3
+                     text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
+                        id="password"
+                        type="password"
+                        placeholder="******************"
+                        name="password" onChange={handleChange} onBlur={handleBlur} />
+                    {errors.passwordError && <p className="text-red-500 text-xs italic">Please choose a password.</p>}
                 </div>
                 <div className="flex items-center justify-between">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
@@ -58,10 +66,12 @@ const LoginForm = () => {
                     </a>
                 </div>
                 <div className="flex items-center justify-center w-full mt-4">
-                    <Link href="/auth/register" className="bg-primary-green text-center hover:bg-primary-green text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="button">
+                    <Link href="/auth/register" className="bg-primary-green text-center hover:bg-primary-green 
+                    text-white font-bold py-2 px-4 w-full rounded focus:outline-none focus:shadow-outline" type="button">
                         Register
                     </Link>
                 </div>
+                {loginError.message && <p className="text-red-500 text-center mt-2 italic">{loginError.message}</p>}
             </form>
             <p className="text-center text-gray-500 text-xs">
                 &copy;2023 Ümit Yasin Çoban. All rights reserved.

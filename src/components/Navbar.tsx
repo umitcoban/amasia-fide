@@ -1,15 +1,20 @@
 import { StateFromReducersMapObject } from "@reduxjs/toolkit";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {useState } from "react";
-import authReducer from "@/redux/slices/authSlice";
+import { useState } from "react";
 import { AiOutlineSearch, AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart, AiOutlineMenu, AiOutlineMenuFold } from "react-icons/ai";
 import { useSelector } from "react-redux";
-const Navbar: React.FC = () => {
+import { RootState } from "@/redux/store";
+import { CategoryModel } from "@/models/categoryModel";
+
+interface Props {
+  categories: CategoryModel[];
+}
+
+const Navbar: React.FC<Props> = ({ categories }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const token = useSelector((state:any) => state.login.token);
-
+  const token = useSelector((state: RootState) => state.auth.token);
   const handlerMenuClick = () => {
     setIsOpen(!isOpen);
     console.log(isOpen);
@@ -34,11 +39,7 @@ const Navbar: React.FC = () => {
             <select id="cars" className="font-inter outline-1 outline-dashed text-center cursor-
             pointer rounded-full w-44 uppercase font-semibold cursor-pointer hover:animate-pulse active:animate-pulse" defaultValue={0} value={0}>
               <option selected className="m-2" value={0}>Kategoriler</option>
-              <option value={1}>Test1</option>
-              <option value={2}>Test2</option>
-              <option value={3}>Test3</option>
-              <option value={4}>Test4</option>
-              <option value={5}>Test5</option>
+              {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
             </select>
           </div>
           <Link href="/" className="transition delay-150 hover:text-primary-green 
@@ -86,11 +87,7 @@ const Navbar: React.FC = () => {
               <select id="categories" className="font-inter outline-none text-center cursor-
             pointer rounded-full w-44 font-semibold uppercase" defaultValue={"categories"}>
                 <option selected className="m-2" value={"categories"}>Kategoriler</option>
-                <option value={"test1"}>Test1</option>
-                <option value={"test2"}>Test2</option>
-                <option value={"test3"}>Test3</option>
-                <option value={"test4"}>Test4</option>
-                <option value={"test5"}>Test5</option>
+                {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
               </select>
             </div>
           </div>
@@ -115,5 +112,6 @@ const Navbar: React.FC = () => {
     </>
   )
 }
+
 
 export default Navbar;
