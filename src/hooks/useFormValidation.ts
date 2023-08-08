@@ -7,6 +7,7 @@ interface Errors {
 const useFormValidation = (initialValues: any, validationRules: any) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<Errors>({});
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
@@ -15,10 +16,22 @@ const useFormValidation = (initialValues: any, validationRules: any) => {
       ...values,
       [name]: value,
     });
+
+    // Değişiklik olduğunda, bu alan için touched olarak işaretle
+    setTouched({
+      ...touched,
+      [name]: true,
+    });
+
+    // Hemen doğrulama yap
+    validateField(name, value);
   };
 
-  const handleBlur = (event: any) => {
-    const { name, value } = event.target;
+  const handleBlur = () => {}; // Eğer blur üzerinde özel bir işlem yapmak istemiyorsanız
+
+  const validateField = (name: string, value: string) => {
+    if (!touched[name]) return; // Eğer alan üzerine tıklanmadıysa, bu alanı geç
+
     const newErrors: Errors = { ...errors };
     const rules = validationRules[name];
 
@@ -36,26 +49,6 @@ const useFormValidation = (initialValues: any, validationRules: any) => {
 
     setErrors(newErrors);
   };
-
-  useEffect(() => {
-    const newErrors: Errors = {};
-
-    for (const field in validationRules) {
-      const rules = validationRules[field];
-
-      if (rules.required && !values[field]) {
-        newErrors[field] = 'This field is required';
-      } else if (rules.minLength && values[field].length < rules.minLength) {
-        newErrors[field] = `This field must be at least ${rules.minLength} characters long`;
-      } else if (rules.maxLength && values[field].length > rules.maxLength) {
-        newErrors[field] = `This field must be no more than ${rules.maxLength} characters long`;
-      } else if (rules.pattern && !rules.pattern.test(values[field])) {
-        newErrors[field] = 'This field is not valid';
-      }
-    }
-
-    setErrors(newErrors);
-  }, [values, validationRules]);
 
   return { values, errors, handleChange, handleBlur };
 };

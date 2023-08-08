@@ -5,18 +5,20 @@ import { register } from "@/services/authService";
 import { validationRules } from "@/utils/validationRules";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 /* eslint-disable react/no-unescaped-entities */
 const RegisterForm = () => {
     const dispatch = useDispatch();
     const [registerError, setRegisterError] = useState({ message: '' });
     const { errors, handleChange, handleBlur, values } = useFormValidation({
-        firstName : '',
+        firstName: '',
         middleName: '',
-        lastName : '',
+        lastName: '',
         phone: '',
         citizenNumber: '',
-        username : '', 
+        username: '',
         password: ''
     }, validationRules);
 
@@ -32,9 +34,11 @@ const RegisterForm = () => {
             citizenNumber: citizenNumber.value,
             phone: phone.value,
         }
-        const response = await register(registerModel).catch((error) => { 
-            console.log(error.response.data.message);
-            setRegisterError(error.response.data.message) 
+
+        const response = await register(registerModel).catch((error) => {
+            console.log(error.response.data?.message);
+            setRegisterError({ message: error.response.data.message });
+            toast.error(registerError.message);
         });
 
         if (response)
@@ -51,7 +55,7 @@ const RegisterForm = () => {
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border
                      ${errors.firstName && 'border-red-500'} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name`}
                         type="text" placeholder="Jane" name="firstName" onChange={handleChange} onBlur={handleBlur} value={values.firstName} />
-                   { errors.firstName && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.firstName && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
                 </div>
                 <div className="w-full md:w-1/3 px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -67,7 +71,7 @@ const RegisterForm = () => {
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border
                      border-gray-200  ${errors.lastName && 'border-red-500'} rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                         id="grid-last-name" type="text" placeholder="Doe" name="lastName" onChange={handleChange} onBlur={handleBlur} value={values.lastName} />
-                        { errors.lastName && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.lastName && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -77,8 +81,8 @@ const RegisterForm = () => {
                     </label>
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border
                      border-gray-200 ${errors.email && 'border-red-500'}  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
-                        id="grid-password" type="email" placeholder="example@gmail.com" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email}  />
-                        { errors.email && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                        id="grid-password" type="email" placeholder="example@gmail.com" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
+                    {errors.email && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -90,7 +94,7 @@ const RegisterForm = () => {
                      border-gray-200 ${errors.password && 'border-red-500'} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                         id="grid-password" type="password" placeholder="******************" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
                     <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
-                    { errors.password && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.password && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -100,9 +104,9 @@ const RegisterForm = () => {
                     </label>
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border 
                     border-gray-200 ${errors.phone && 'border-red-500'} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
-                        id="grid-password" type="text" placeholder="05000000000" name="phone"  onChange={handleChange} onBlur={handleBlur} value={values.phone} />
+                        id="grid-password" type="text" placeholder="05000000000" name="phone" onChange={handleChange} onBlur={handleBlur} value={values.phone} />
                     <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
-                    { errors.phone && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.phone && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-2">
@@ -140,11 +144,12 @@ const RegisterForm = () => {
                 </div>
                 <div className="flex items-center justify-center w-full text-center mt-8">
                     <button className="bg-primary-green text-center
-                     hover:bg-primary-green text-white font-bold py-2 px-4 w-2/3 rounded focus:outline-none focus:shadow-outline" type="submit">
+                     hover:bg-primary-green text-white font-bold py-2 px-4 w-2/3 rounded focus:outline-none focus:shadow-outline"
+                        type="submit" >
                         Register
                     </button>
                 </div>
-                {registerError.message && <p className="text-red-500 text-xs italic">{registerError.message}</p>}
+                <ToastContainer />
             </div>
         </form>
     )

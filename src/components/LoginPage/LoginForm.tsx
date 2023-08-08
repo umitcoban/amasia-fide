@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {validationRules} from "@/utils/validationRules";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const LoginForm: React.FC = () => {
@@ -24,10 +25,9 @@ const LoginForm: React.FC = () => {
         if (errors.username || errors.password)
             return;
         const data = await login({ username: values.username, password: values.password }).catch((data) => {
-            console.log(data);
-            setLoginError({ message: data.response.data.message})
+            setLoginError({ message: data.response ? data.response.data.message : data.message});
+            toast.error(data.response ? data.response.data.message : data.message);
         });
-        console.log(data);
         if (data?.token) {
             dispatch(logIn(data.token))
             localStorage.setItem('token', data.token);
@@ -74,11 +74,11 @@ const LoginForm: React.FC = () => {
                         Register
                     </Link>
                 </div>
-                {loginError.message && <p className="text-red-500 text-center mt-2 italic">{loginError.message}</p>}
             </form>
             <p className="text-center text-gray-500 text-xs">
                 &copy;2023 Ümit Yasin Çoban. All rights reserved.
             </p>
+            <ToastContainer />
         </div>
     )
 }

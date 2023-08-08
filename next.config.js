@@ -3,6 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['i.haber3.com']
+  },
+  i18n: {
+    locales:["en", "tr"],
+    defaultLocale: "tr"
   }
 }
 
