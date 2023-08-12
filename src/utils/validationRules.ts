@@ -7,7 +7,10 @@ export const validationRules = {
       required: true
     },
     citizenNumber:{
-      required: true
+      required: true,
+      maxLength: 11,
+      minLength: 11,
+      pattern: /^[1-9]{1}[0-9]{9}[02468]{1}$/
     },
     username: {
       required: true,
@@ -24,7 +27,7 @@ export const validationRules = {
     phone: {
       required: true,
       minLength: 10,
-      pattern: /^\d{3}\d{3}\d{2}\d{2}$/
+      pattern: /^(05)([0-9]{2})\s?([0-9]{3})\s?([0-9]{2})\s?([0-9]{2})$/
     }
   };
   

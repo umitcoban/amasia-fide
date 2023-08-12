@@ -3,6 +3,7 @@ import { RegisterModel } from "@/models/authModel";
 import { logIn } from "@/redux/slices/authSlice";
 import { register } from "@/services/authService";
 import { validationRules } from "@/utils/validationRules";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,7 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 /* eslint-disable react/no-unescaped-entities */
 const RegisterForm = () => {
+    const errorTypes = ['firstName', 'lastName', 'username', 'password', 'phone', 'citizenNumber'];
     const dispatch = useDispatch();
+    const router = useRouter();
     const [registerError, setRegisterError] = useState({ message: '' });
     const { errors, handleChange, handleBlur, values } = useFormValidation({
         firstName: '',
@@ -21,6 +24,8 @@ const RegisterForm = () => {
         username: '',
         password: ''
     }, validationRules);
+
+    let hasError = errorTypes.some(prop => errors[prop] != undefined);
 
     const submitFormHandler = async (event: any) => {
         event.preventDefault();
@@ -36,13 +41,15 @@ const RegisterForm = () => {
         }
 
         const response = await register(registerModel).catch((error) => {
-            console.log(error.response.data?.message);
             setRegisterError({ message: error.response.data.message });
-            toast.error(registerError.message);
+            toast.error(error.response.data?.message);
         });
 
-        if (response)
+        if (response){
             dispatch(logIn(response?.token));
+            localStorage.setItem("token", response.token);
+            router.push("/shop");
+        }
     }
 
     return (
@@ -55,7 +62,7 @@ const RegisterForm = () => {
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border
                      ${errors.firstName && 'border-red-500'} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name`}
                         type="text" placeholder="Jane" name="firstName" onChange={handleChange} onBlur={handleBlur} value={values.firstName} />
-                    {errors.firstName && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.firstName && <p className="text-red-500 text-xs italic">Lütfen gerekli bilgileri giriniz.</p>}
                 </div>
                 <div className="w-full md:w-1/3 px-3">
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -71,7 +78,7 @@ const RegisterForm = () => {
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border
                      border-gray-200  ${errors.lastName && 'border-red-500'} rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                         id="grid-last-name" type="text" placeholder="Doe" name="lastName" onChange={handleChange} onBlur={handleBlur} value={values.lastName} />
-                    {errors.lastName && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.lastName && <p className="text-red-500 text-xs italic">Lütfen gerekli bilgileri giriniz.</p>}
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -82,7 +89,7 @@ const RegisterForm = () => {
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border
                      border-gray-200 ${errors.email && 'border-red-500'}  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                         id="grid-password" type="email" placeholder="example@gmail.com" name="email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
-                    {errors.email && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.email && <p className="text-red-500 text-xs italic">Lütfen gerekli bilgileri giriniz.</p>}
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -93,8 +100,7 @@ const RegisterForm = () => {
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border
                      border-gray-200 ${errors.password && 'border-red-500'} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                         id="grid-password" type="password" placeholder="******************" name="password" onChange={handleChange} onBlur={handleBlur} value={values.password} />
-                    <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
-                    {errors.password && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.password && <p className="text-red-500 text-xs italic">Lütfen gerekli bilgileri giriniz.</p>}
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -105,8 +111,7 @@ const RegisterForm = () => {
                     <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border 
                     border-gray-200 ${errors.phone && 'border-red-500'} rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                         id="grid-password" type="text" placeholder="05000000000" name="phone" onChange={handleChange} onBlur={handleBlur} value={values.phone} />
-                    <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
-                    {errors.phone && <p className="text-red-500 text-xs italic">Please fill out this field.</p>}
+                    {errors.phone && <p className="text-red-500 text-xs italic">Lütfen gerekli bilgileri giriniz.</p>}
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-2">
@@ -124,9 +129,9 @@ const RegisterForm = () => {
                     <div className="relative">
                         <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state" name="district">
-                            <option>New Mexico</option>
-                            <option>Missouri</option>
-                            <option>Texas</option>
+                            <option>Ankara</option>
+                            <option>İstanbul</option>
+                            <option>İzmir</option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -139,13 +144,16 @@ const RegisterForm = () => {
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
                         TC Kimlik No
                     </label>
-                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="grid-city" type="text" placeholder="11111111111" name="citizenNumber" />
+                    <input className={`appearance-none block w-full bg-gray-200 text-gray-700 border
+                     border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 ${errors.citizenNumber && 'border-red-500'}`}
+                        id="grid-city" type="text" placeholder="11111111111" name="citizenNumber"
+                        onChange={handleChange} onBlur={handleBlur} value={values.citizenNumber} pattern="^\d+$" />
+                    {errors.citizenNumber && <p className="text-red-500 text-xs italic">Lütfen gerekli bilgileri giriniz.</p>}
                 </div>
                 <div className="flex items-center justify-center w-full text-center mt-8">
-                    <button className="bg-primary-green text-center
-                     hover:bg-primary-green text-white font-bold py-2 px-4 w-2/3 rounded focus:outline-none focus:shadow-outline"
-                        type="submit" >
+                    <button className={`${hasError ? 'bg-gray-500' : 'bg-primary-green'} text-center
+                     ${!hasError && 'hover:bg-primary-green'} text-white font-bold py-2 px-4 w-2/3 rounded focus:outline-none focus:shadow-outline`}
+                        type="submit" disabled={hasError} >
                         Register
                     </button>
                 </div>
