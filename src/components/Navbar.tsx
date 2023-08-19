@@ -62,10 +62,10 @@ const Navbar: React.FC<Props> = ({ categories }) => {
               duration-150 hover:text-white hover:scale-110">
               <AiOutlineUser className="mx-auto my-auto pt-1 text-lg font-extrabold" />
             </Link>
-            <button type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
+            <Link href="/cart" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
               duration-150 hover:text-white hover:scale-110 ">
               <AiOutlineShoppingCart className="mx-auto" />
-            </button>
+            </Link>
           </div>
         </div>
       </nav>
