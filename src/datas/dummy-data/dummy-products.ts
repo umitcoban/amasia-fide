@@ -11,21 +11,21 @@ const DUMMY_PRODUCTS : product[] = [
         name: 'Menekşe',
         description: 'Menekşe',
         price: 10.05,
-        image: 'https://images.migrosone.com/sanalmarket/product/28089034/domates-pembe-kg-f23b66-1650x1650.jpg',
+        image: 'https://www.bahcetohum.com/img/products/mor-beyaz-menekse--cicek-tohumlari-_28.01.2022_a5be501.png',
         discount: 0
     },
     {
-        name: 'Menekşe',
-        description: 'Menekşe',
+        name: 'Çam',
+        description: 'Çam Ağaç Fidan',
         price: 45,
-        image: 'https://images.migrosone.com/sanalmarket/product/28089034/domates-pembe-kg-f23b66-1650x1650.jpg',
+        image: 'https://productimages.hepsiburada.net/s/20/375-375/9871437824050.jpg',
         discount: 15
     },
     {
-        name: 'Menekşe',
-        description: 'Menekşe',
+        name: 'Biber',
+        description: 'Kıl Biber',
         price: 10.05,
-        image: 'https://images.migrosone.com/sanalmarket/product/28089034/domates-pembe-kg-f23b66-1650x1650.jpg',
+        image: 'https://www.fidebahcesi.com/image/cache/data/fide/sarisin-f1-corbaci-kil-biber-fidesi-a785-550x550.jpg',
         discount: 0
     },
     {
@@ -36,17 +36,17 @@ const DUMMY_PRODUCTS : product[] = [
         discount: 15
     },
     {
-        name: 'Menekşe',
-        description: 'Menekşe',
+        name: 'Karpuz',
+        description: 'Karpuz Tohum',
         price: 10.05,
-        image: 'https://images.migrosone.com/sanalmarket/product/28089034/domates-pembe-kg-f23b66-1650x1650.jpg',
+        image: 'https://productimages.hepsiburada.net/s/35/375-375/10481318199346.jpg',
         discount: 0
     },
     {
-        name: 'Menekşe',
-        description: 'Menekşe',
+        name: 'Kapya',
+        description: 'Kapya Biber',
         price: 45,
-        image: 'https://images.migrosone.com/sanalmarket/product/28089034/domates-pembe-kg-f23b66-1650x1650.jpg',
+        image: 'https://www.fidebahcesi.com/image/cache/data/fide/standart-kapya-biber-fidesi-196-1000x1000.jpg',
         discount: 15
     }
 ];

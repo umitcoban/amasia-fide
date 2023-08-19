@@ -33,12 +33,12 @@ const ProductCard: React.FC<props> = (props) => {
                         src={props.image} alt={props.description} height={48} width={200}/>
                 </div>
                 <div className="flex items-center justify-between space-x-3 py-2 bg-white mt-4 cursor-pointer">
-                    <h1 className="px-2 py-1 text-lg text-primary-black italics w-2/4 text-center border-2 border-secondary-gray h-14 pt-3">{props.description}</h1>
-                    <button className="px-2 py-1 text-5xl font-semibold text-gray-900 uppercase transition-colors duration-300 transform
+                    <h1 className="px-2 py-1 text-primary-black italics w-2/4 text-center border-2 border-secondary-gray h-14 pt-3">{props.description}</h1>
+                    <button className="px-2 py-1 text-3xl font-bold text-gray-900 uppercase transition-colors duration-300 transform
                      bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none w-1/4 text-center border border-primary-green h-14">
                         <AiOutlineShopping className="w-full text-primary-green" />
                     </button>
-                    <button className="px-2 py-1 text-5xl font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded
+                    <button className="px-2 py-1 text-3xl font-bold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded
                      hover:bg-gray-200  focus:bg-gray-400 focus:outline-none w-1/4 text-center border border-primary-green h-14">
                         <AiOutlineHeart className="w-full text-primary-green" />
                     </button>
