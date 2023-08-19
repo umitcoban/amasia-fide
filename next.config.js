@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['i.haber3.com', 'www.shutterstock.com', 'cdnuploads.aa.com.tr', 'images.migrosone.com', 'www.bahcetohum.com',
-      'productimages.hepsiburada.net', 'www.fidebahcesi.com']
+      'productimages.hepsiburada.net', 'www.fidebahcesi.com', 'www.wilsoncenter.org']
   },
   i18n: {
     locales: ["en", "tr"],

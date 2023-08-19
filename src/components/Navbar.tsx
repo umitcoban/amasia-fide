@@ -1,4 +1,3 @@
-import { StateFromReducersMapObject } from "@reduxjs/toolkit";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -6,6 +5,7 @@ import { AiOutlineSearch, AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart, 
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { CategoryModel } from "@/models/categoryModel";
+import Cookies from "js-cookie";
 
 interface Props {
   categories: CategoryModel[];
@@ -14,7 +14,9 @@ interface Props {
 const Navbar: React.FC<Props> = ({ categories }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const token = useSelector((state: RootState) => state.auth.token);
+  const token = Cookies.get('token');
+  const userUrl = token ? '/user' : '/auth';
+
   const handlerMenuClick = () => {
     setIsOpen(!isOpen);
     console.log(isOpen);
@@ -45,7 +47,7 @@ const Navbar: React.FC<Props> = ({ categories }) => {
           <Link href="/"  className="transition delay-150 hover:text-primary-green 
             ease-linear hover:border-b hover:border-primary-gray 
             text-center hover:animate-bounce">Hakkımızda</Link>
-          <div className="flex lg:border-e-2 lg:border-s-2 text-center">
+          <div className="hidden lg:flex lg:border-e-2 lg:border-s-2 text-center">
             <input type="text" className="w-full border text-center md:ms-3 md:w-full sm:w-full border-gray-400 
             rounded-md text-sm focus:outline-teal-600 active:animate-pulse focus:animate-pulse" placeholder="This is placeholder" />
             <button type="button" className="rounded text-center border items-center me-3 ms-2 w-10 hover:bg-primary-green transition
@@ -58,7 +60,7 @@ const Navbar: React.FC<Props> = ({ categories }) => {
               duration-150 hover:text-white hover:scale-110 ">
               <AiOutlineHeart className="mx-auto" />
             </button>
-            <Link href={`${token ? '/shop' : '/auth'}`} type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
+            <Link href={userUrl} type="button" className="rounded text-center border items-center w-10 hover:bg-primary-green transition
               duration-150 hover:text-white hover:scale-110">
               <AiOutlineUser className="mx-auto my-auto pt-1 text-lg font-extrabold" />
             </Link>
