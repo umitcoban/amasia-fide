@@ -3,18 +3,28 @@ export interface LoginModel {
     password: String
 }
 
-export interface RegisterModel{
-    firstName:string,
-    middleName:string,
-    lastName:string,
-    email:string,
-    password:string,
-    phone:string,
-    citizenNumber:string
+export interface RegisterModel {
+    firstName: string,
+    middleName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    phone: string,
+    citizenNumber: string
 }
 
-export interface TokenModel{
-    status:number,
+export interface UserActivateModel {
+    email: string,
+    activationCode: number
+}
+
+export interface TokenModel {
+    status: number,
     timeStamp: number,
-    token:string
+    token: string
+}
+export interface ApiResponseModel {
+    status: number,
+    timeStamp: number,
+    data: any
 }

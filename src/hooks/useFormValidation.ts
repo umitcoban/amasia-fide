@@ -18,20 +18,30 @@ const useFormValidation = (initialValues: any, validationRules: any) => {
     });
 
     // Değişiklik olduğunda, bu alan için touched olarak işaretle
-    setTouched({
+    const newTouched = {
       ...touched,
       [name]: true,
-    });
-
+    };
+    setTouched(newTouched);
     // Hemen doğrulama yap
-    validateField(name, value);
+    validateField(name, value, newTouched);
   };
 
-  const handleBlur = () => {}; // Eğer blur üzerinde özel bir işlem yapmak istemiyorsanız
+  const handleBlur = (event: any) => {
+    const { name, value } = event.target;
 
-  const validateField = (name: string, value: string) => {
-    if (!touched[name]) return; // Eğer alan üzerine tıklanmadıysa, bu alanı geç
+    const newTouched = {
+      ...touched,
+      [name]: true,
+    };
 
+    setTouched(newTouched);
+    
+    validateField(name, value, newTouched);
+  }; // Eğer blur üzerinde özel bir işlem yapmak istemiyorsanız
+
+  const validateField = async (name: string, value: string, currentTouched: { [key: string]: boolean }) => {
+    if (!currentTouched[name]) return; // Eğer alan üzerine tıklanmadıysa, bu alanı geç
     const newErrors: Errors = { ...errors };
     const rules = validationRules[name];
 
@@ -42,6 +52,10 @@ const useFormValidation = (initialValues: any, validationRules: any) => {
     } else if (rules.maxLength && value.length > rules.maxLength) {
       newErrors[name] = `This field must be no more than ${rules.maxLength} characters long`;
     } else if (rules.pattern && !rules.pattern.test(value)) {
+      newErrors[name] = 'This field is not valid';
+    } else if (rules.min && value < rules.min) {
+      newErrors[name] = 'This field is not valid';
+    } else if (rules.max && value > rules.max) {
       newErrors[name] = 'This field is not valid';
     } else {
       delete newErrors[name];

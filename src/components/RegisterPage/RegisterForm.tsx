@@ -1,8 +1,9 @@
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import useFormValidation from "@/hooks/useFormValidation";
 import { RegisterModel } from "@/models/authModel";
-import { logIn } from "@/redux/slices/authSlice";
 import { register } from "@/services/authService";
 import { validationRules } from "@/utils/validationRules";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -41,14 +42,16 @@ const RegisterForm = () => {
         }
 
         const response = await register(registerModel).catch((error) => {
-            setRegisterError({ message: error.response.data.message });
-            toast.error(error.response.data?.message);
+            setRegisterError({ message: error.response?.data?.message ? error.response?.data?.message : 'Beklenmedik bir hata oluştu.' });
+            toast.error(error.response?.data?.message ? error.response.data?.message : 'Beklenmedik bir hata oluştu.');
         });
 
-        if (response){
-            dispatch(logIn(response?.token));
-            localStorage.setItem("token", response.token);
-            router.push("/shop");
+        if (response) {
+            if (response.data === true){
+                Cookies.set('activation', 'true', {expires: new Date().getTime() + 3 * 60 * 1000});
+                router.push("/auth/activation");
+            }else
+                toast.error('Beklenmedik bir hata oluştu.');
         }
     }
 
@@ -154,7 +157,7 @@ const RegisterForm = () => {
                     <button className={`${hasError ? 'bg-gray-500' : 'bg-primary-green'} text-center
                      ${!hasError && 'hover:bg-primary-green'} text-white font-bold py-2 px-4 w-2/3 rounded focus:outline-none focus:shadow-outline`}
                         type="submit" disabled={hasError} >
-                        Register
+                        Kayıt Ol
                     </button>
                 </div>
                 <ToastContainer />

@@ -1,34 +1,31 @@
-import RegisterForm from "@/components/RegisterPage/RegisterForm";
+import ActivationForm from "@/components/RegisterPage/ActivationForm";
+import {parseCookies} from "nookies";
 import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
 
-const Register = () => {
+const Activation = () => {
     return (
         <section>
             <div className="flex w-full justify-center items-center my-4 md:my-24 lg:my-32">
-                <RegisterForm />
+                <ActivationForm />
             </div>
         </section>
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps:GetServerSideProps = async (context) => {
     const cookies = parseCookies(context);
-    const token = cookies['token'];
-    
-    if (token) {
+    const isActivation = cookies['activation'];
+    if (!isActivation) {
         return {
             redirect: {
-                destination: '/shop',
+                destination: '/',
                 permanent: false,
             },
         };
     }
-
     return {
         props: {}
     }
 }
 
-
-export default Register;
+export default Activation;

@@ -7,6 +7,8 @@ import { CategoryModel } from "@/models/categoryModel";
 import { getAllCategories } from "@/services/categoryService";
 import { RootState } from "@/redux/store";
 import { setCategories } from "@/redux/slices/categorySlice";
+import { useRouter } from "next/router";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 interface Props {
   children?: ReactNode;
 };
@@ -14,13 +16,11 @@ interface Props {
 const Layout: React.FC<Props> = ({ children }) => {
   const dispatch = useDispatch();
   const categories: CategoryModel[] = useSelector((state: RootState) => state.category);
-
   useEffect(() => {
 
     const fetchCategories = async () => {
       try {
         const data = await getAllCategories();
-        console.log(data);
         dispatch(setCategories(data));
       } catch (error) {
         console.error("Failed to fetch categories:", error);

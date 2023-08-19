@@ -1,12 +1,12 @@
-import RegisterForm from "@/components/RegisterPage/RegisterForm";
+import ResendForm from "@/components/RegisterPage/ResendForm";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 
-const Register = () => {
+const Resend = () => {
     return (
         <section>
             <div className="flex w-full justify-center items-center my-4 md:my-24 lg:my-32">
-                <RegisterForm />
+                <ResendForm />
             </div>
         </section>
     )
@@ -14,21 +14,17 @@ const Register = () => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const cookies = parseCookies(context);
-    const token = cookies['token'];
-    
-    if (token) {
+    const token = cookies["token"];
+    if (token)
         return {
             redirect: {
                 destination: '/shop',
-                permanent: false,
-            },
-        };
-    }
-
+                permanent: false
+            }
+        }
     return {
         props: {}
     }
 }
 
-
-export default Register;
+export default Resend;

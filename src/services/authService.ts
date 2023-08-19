@@ -1,4 +1,4 @@
-import { LoginModel, RegisterModel, TokenModel } from "@/models/authModel";
+import { LoginModel, RegisterModel, TokenModel, ApiResponseModel, UserActivateModel } from "@/models/authModel";
 import { api } from "@/services/api";
 
 export const login = async (loginModel: LoginModel): Promise<TokenModel> => {
@@ -6,7 +6,17 @@ export const login = async (loginModel: LoginModel): Promise<TokenModel> => {
     return response.data;
 }
 
-export const register = async(registerModel: RegisterModel): Promise<TokenModel> => {
-    const response = await api.post<TokenModel>('/auth/register', registerModel);
+export const register = async (registerModel: RegisterModel): Promise<ApiResponseModel> => {
+    const response = await api.post<ApiResponseModel>('/auth/register', registerModel);
+    return response.data;
+}
+
+export const activateUser = async (userActivateModel: UserActivateModel): Promise<ApiResponseModel> => {
+    const response = await api.post<ApiResponseModel>('/auth/activate', userActivateModel);
+    return response.data;
+}
+
+export const resendRegistrationCode = async (email: string): Promise<ApiResponseModel> => {
+    const response = await api.post<ApiResponseModel>(`/auth/resend/${email}`);
     return response.data;
 }

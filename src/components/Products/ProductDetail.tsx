@@ -4,6 +4,7 @@ import QTYButton from "../UI/QTYButton";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DUMMY_PRODUCTS from "@/datas/dummy-data/dummy-products";
+import Image from "next/image";
 
 interface product {
     name: string,
@@ -29,15 +30,15 @@ const ProductDetail = () => {
         } else {
             // Handle case when id is an array or something else
         }
-    },[])
+    },[id])
 
     return (
         <section className="text-gray-700 body-font overflow-hidden bg-white">
             <div className="container px-5 py-24 mx-auto">
                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                    <img alt="ecommerce"
+                    <Image alt="ecommerce"
                         className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 hover:scale-110 transition duration-200"
-                        src={item?.image} />
+                        src={item?.image || ""} width={200} height={48}/>
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                         <h2 className="text-sm title-font text-gray-500 tracking-widest">Amasia-Fide</h2>
                         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{item?.name}</h1>
@@ -69,7 +70,7 @@ const ProductDetail = () => {
                             <div className="flex ml-6 items-center">
                                 <span className="mr-3">Size</span>
                                 <div className="relative">
-                                    <select className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
+                                    <select className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10" defaultValue={0}>
                                         <option>SM</option>
                                         <option>M</option>
                                         <option>L</option>

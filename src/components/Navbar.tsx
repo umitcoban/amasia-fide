@@ -37,14 +37,14 @@ const Navbar: React.FC<Props> = ({ categories }) => {
             text-center hover:animate-bounce ${router.pathname === '/shop' ? 'animate-pulse text-primary-green' : ''}`}>Mağaza</Link>
           <div className="inline">
             <select id="cars" className="font-inter outline-1 outline-dashed text-center cursor-
-            pointer rounded-full w-44 uppercase font-semibold cursor-pointer hover:animate-pulse active:animate-pulse" defaultValue={0} value={0}>
-              <option selected className="m-2" value={0}>Kategoriler</option>
+            pointer rounded-full w-44 uppercase font-semibold cursor-pointer hover:animate-pulse active:animate-pulse" defaultValue={0}>
+              <option className="m-2" value={0}>Kategoriler</option>
               {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
             </select>
           </div>
-          <Link href="/" className="transition delay-150 hover:text-primary-green 
+          <Link href="/"  className="transition delay-150 hover:text-primary-green 
             ease-linear hover:border-b hover:border-primary-gray 
-            text-center hover:animate-bounce">hakkımızda</Link>
+            text-center hover:animate-bounce">Hakkımızda</Link>
           <div className="flex lg:border-e-2 lg:border-s-2 text-center">
             <input type="text" className="w-full border text-center md:ms-3 md:w-full sm:w-full border-gray-400 
             rounded-md text-sm focus:outline-teal-600 active:animate-pulse focus:animate-pulse" placeholder="This is placeholder" />
@@ -85,8 +85,8 @@ const Navbar: React.FC<Props> = ({ categories }) => {
           <div className="border-2 shadow space-y-3 mb-2">
             <div className="inline">
               <select id="categories" className="font-inter outline-none text-center cursor-
-            pointer rounded-full w-44 font-semibold uppercase" defaultValue={"categories"}>
-                <option selected className="m-2" value={"categories"}>Kategoriler</option>
+            pointer rounded-full w-44 font-semibold uppercase" defaultValue={0}>
+                <option className="m-2" value={"categories"}>Kategoriler</option>
                 {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
               </select>
             </div>
