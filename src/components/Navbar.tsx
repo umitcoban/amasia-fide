@@ -38,7 +38,7 @@ const Navbar: React.FC<Props> = ({ categories }) => {
             ease-linear hover:border-b hover:border-primary-gray 
             text-center hover:animate-bounce ${router.pathname === '/shop' ? 'animate-pulse text-primary-green' : ''}`}>Mağaza</Link>
           <div className="inline">
-            <select id="cars" className="font-inter outline-1 outline-dashed text-center cursor-
+            <select id="cars" className="font-inter outline-1 text-center cursor-
             pointer rounded-full w-44 uppercase font-semibold cursor-pointer hover:animate-pulse active:animate-pulse" defaultValue={0}>
               <option className="m-2" value={0}>Kategoriler</option>
               {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
