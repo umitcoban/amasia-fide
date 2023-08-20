@@ -1,11 +1,12 @@
 import UserLayout from "@/components/User/UserLayout";
+import UserProfile from "@/components/User/UserProfile";
 
 const UserPage: React.FC = () => {
     return (
         <UserLayout>
-            <>
-                <h1 className="text-black text-6xl">Test</h1>
-            </>
+            <div className="flex container h-full">
+                <UserProfile />
+            </div>
         </UserLayout>
     )
 }

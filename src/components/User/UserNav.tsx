@@ -54,7 +54,7 @@ const UserNav: React.FC<Props> = ({ children }: Props) => {
                     </header>
                     <main className="max-w-full sm:w-full h-full flex relative overflow-y-hidden overflow-x-hidden">
                         <div className="h-full w-full lg:m-4 flex flex-wrap items-start justify-start rounded-tl grid-flow-col auto-cols-max gap-4">
-                            <div className="sm:w-full sm:pt-3 w-96 h-full rounded-lg flex-shrink-0 flex-grow bg-secondary-gray">
+                            <div className="sm:w-full sm:pt-3 w-96 h-full rounded-lg flex-shrink-0 flex-grow bg-third-gray-gray">
                                 {children}
                             </div>
                         </div>
