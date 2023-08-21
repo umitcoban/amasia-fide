@@ -1,11 +1,14 @@
 import useFormValidation from "@/hooks/useFormValidation";
 import { activateUser } from "@/services/authService";
 import { validationRules } from "@/utils/validationRules";
+import Cookies from "js-cookie";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const ActivationFrom: React.FC = () => {
+    const router = useRouter();
     const errorTypes = ['email', 'activationCode'];
     const { errors, handleChange, handleBlur, values } = useFormValidation({
         email: '',
@@ -16,10 +19,14 @@ const ActivationFrom: React.FC = () => {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const {email: emailInput, activationCode: activationCodeInput} = event.target;
-        console.log()
         const response = await activateUser({email: emailInput.value, activationCode: activationCodeInput.value}).catch(error => {
             toast.error(error.response? error.response.data.message : 'Beklenmedik bir hata oluştu!');
         });
+        if(response && response.data === true)
+        {
+            Cookies.remove("activation");
+            router.push("/shop");
+        }
     }
     return (
         <form className="flex items-center justify-center bg-[#fbfbfb]" onSubmit={handleSubmit}>

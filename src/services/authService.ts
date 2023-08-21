@@ -17,6 +17,6 @@ export const activateUser = async (userActivateModel: UserActivateModel): Promis
 }
 
 export const resendRegistrationCode = async (email: string): Promise<ApiResponseModel> => {
-    const response = await api.post<ApiResponseModel>(`/auth/resend/${email}`);
+    const response = await api.put<ApiResponseModel>(`/auth/resend/${email}`);
     return response.data;
 }

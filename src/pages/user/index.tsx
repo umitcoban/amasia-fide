@@ -36,6 +36,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 changesNumber: 25,
                 description: "test",
                 val: "30"
+            },
+            {
+                changesNumber: 25,
+                description: "test",
+                val: "30"
+            },
+            {
+                changesNumber: 25,
+                description: "test",
+                val: "30"
             }
         ]
     }
