@@ -22,7 +22,9 @@ module.exports = {
         'primary-black': '#393939',
         'primary-green': '#88AB59',
         'primary-gray': '#C9C4C4',
-        'secondary-gray': '#E9E9E9' 
+        'secondary-gray': '#E9E9E9',
+        'third-gray': '#F5F5F5',
+        'primary-blue': '#279EFF' 
       },
       spacing:{
         '128': '32rem',
