@@ -22,7 +22,7 @@ const ResendForm: React.FC = () => {
             console.log(error);
             toast.error(error.response ? error.response.data.message : "Beklenmedik bir hata oluştu");
         });
-        console.log(data);
+
         if (data && data.data === true) {
             Cookies.set("activation", "true", { expires: new Date().getTime() + 3 * 60 * 1000 })
             router.push("/auth/activation");

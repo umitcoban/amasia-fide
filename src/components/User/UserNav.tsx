@@ -1,14 +1,17 @@
+import { RootState } from "@/redux/store";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from 'react';
 import { AiFillAlipayCircle, AiFillHeart, AiFillSetting, AiOutlineUser } from "react-icons/ai";
 import { FaMoneyCheck } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 interface Props {
     children: ReactNode;
 }
 
 const UserNav: React.FC<Props> = ({ children }: Props) => {
+    const user = useSelector((state: RootState) => state.user);
     return (
         <div className="flex justify-center w-full h-full mt-2">
             <div className="h-screen w-full bg-white relative flex overflow-hidden">
@@ -32,7 +35,7 @@ const UserNav: React.FC<Props> = ({ children }: Props) => {
                     <header className="lg:h-28 sm:h-16 w-full flex items-center relative justify-end px-2 lg:px-12 lg:space-x-20 bg-primary-blue">
                         <div className="hidden md:flex flex-shrink-0 items-center space-x-4 text-white">
                             <div className="flex flex-col items-end ">
-                                <div className="lg:text-xl sm:text-md font-medium ">Ümit Yasin Çoban</div>
+                                <div className="lg:text-xl sm:text-md font-medium ">{`${user.firstName} ${user.middleName}  ${user.lastName}`}</div>
                             </div>
                             <Image src="https://www.wilsoncenter.org/sites/default/files/media/images/person/james-person-1.jpg" alt="user" height={15} width={50}
                                 className="rounded-full sm:h-16 w-12 cursor-pointer object-cover" />

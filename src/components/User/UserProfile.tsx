@@ -1,13 +1,14 @@
+import { UserDTO } from "@/models/user.entity";
 import BasicChart, { Props as chartDataProps } from "../Charts/BasicChart";
 import UserProfileStatCard, { Props as profileDataProps } from "./UserProfileStatCard";
 
 export interface Props {
     chartData: chartDataProps,
-    profileData: profileDataProps[]
+    profileData: profileDataProps[],
+    userData: UserDTO
 }
 
 const UserProfile: React.FC<Props> = (props: Props) => {
-    console.log(props)
     return (
         <div className="w-full h-full mt-10">
             <div className="grid md:grid-rows-3 lg:grid-rows-3 md:grid-cols-2 gap-2 w-full items-center lg:pl-5 lg:mt-10 mb-0 pb-0">

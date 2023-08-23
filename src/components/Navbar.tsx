@@ -19,7 +19,6 @@ const Navbar: React.FC<Props> = ({ categories }) => {
 
   const handlerMenuClick = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   }
 
   return (

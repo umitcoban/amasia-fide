@@ -23,8 +23,8 @@ export interface TokenModel {
     timeStamp: number,
     token: string
 }
-export interface ApiResponseModel {
+export interface ApiResponseModel<Type> {
     status: number,
     timeStamp: number,
-    data: any
+    data: Type
 }

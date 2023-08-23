@@ -6,17 +6,17 @@ export const login = async (loginModel: LoginModel): Promise<TokenModel> => {
     return response.data;
 }
 
-export const register = async (registerModel: RegisterModel): Promise<ApiResponseModel> => {
-    const response = await api.post<ApiResponseModel>('/auth/register', registerModel);
+export const register = async (registerModel: RegisterModel): Promise<ApiResponseModel<boolean>> => {
+    const response = await api.post<ApiResponseModel<boolean>>('/auth/register', registerModel);
     return response.data;
 }
 
-export const activateUser = async (userActivateModel: UserActivateModel): Promise<ApiResponseModel> => {
-    const response = await api.post<ApiResponseModel>('/auth/activate', userActivateModel);
+export const activateUser = async (userActivateModel: UserActivateModel): Promise<ApiResponseModel<boolean>> => {
+    const response = await api.post<ApiResponseModel<boolean>>('/auth/activate', userActivateModel);
     return response.data;
 }
 
-export const resendRegistrationCode = async (email: string): Promise<ApiResponseModel> => {
-    const response = await api.put<ApiResponseModel>(`/auth/resend/${email}`);
+export const resendRegistrationCode = async (email: string): Promise<ApiResponseModel<boolean>> => {
+    const response = await api.put<ApiResponseModel<boolean>>(`/auth/resend/${email}`);
     return response.data;
 }
