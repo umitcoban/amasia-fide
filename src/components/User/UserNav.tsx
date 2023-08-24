@@ -1,11 +1,12 @@
 import { RootState } from "@/redux/store";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from 'react';
-import { AiFillAlipayCircle, AiFillHeart, AiFillSetting, AiOutlineUser } from "react-icons/ai";
+import { ReactNode, useState } from 'react';
+import { AiFillHeart, AiFillSetting, AiOutlineUser } from "react-icons/ai";
 import { FaMoneyCheck } from "react-icons/fa";
 import { useSelector } from "react-redux";
-
+import { Tooltip } from 'react-tooltip'
+import 'react-tooltip/dist/react-tooltip.css';
 interface Props {
     children: ReactNode;
 }
@@ -18,7 +19,8 @@ const UserNav: React.FC<Props> = ({ children }: Props) => {
                 <aside className="hidden md:flex md:flex-col h-full w-16 space-y-10 items-center justify-center relative bg-primary-blue text-white rounded">
                     <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
                         <Link href={"/user"}>
-                        <AiOutlineUser className="font-bold text-2xl" />
+                            <Tooltip id="profile-tooltip" place="right" style={{zIndex: 10}}/>
+                            <AiOutlineUser className="font-bold text-2xl" data-tooltip-id="profile-tooltip" data-tooltip-content="Hello world!" />
                         </Link>
                     </div>
                     <div className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">

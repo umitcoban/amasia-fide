@@ -1,11 +1,16 @@
 import LoginForm from "@/components/LoginPage/LoginForm";
-import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { parseCookies } from "nookies";
+import { ToastContainer, toast } from "react-toastify";
 
-const LoginPage = () => {
-    useAuthRedirect('/');
+interface Props{
+    error: string
+}
+
+const LoginPage = ({error}: Props) => {
+    if(error)
+        toast.error(error);
     return (
         <section className="container lg:mt-14">
             <div className="flex flex-col lg:flex-row justify-center items-center space-y-5 lg:space-y-4">
@@ -16,13 +21,22 @@ const LoginPage = () => {
                     <LoginForm />
                 </div>
             </div>
+            <ToastContainer />
         </section>
     )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+    const { error } = context.query;
+    console.log(error);
     const cookies = parseCookies(context);
     const token = cookies["token"];
+    if (error)
+        return {
+            props: {
+                error: error
+            }
+        }
     if (token)
         return {
             redirect: {

@@ -17,7 +17,7 @@ const CartForm: React.FC<Props> = ({ data }: Props) => {
                             return <CartItem key={index} data={cartItem} />
                         })}
                     </div>
-                    <div className="flex lg:w-1/3 sm:w-full justify-center text-center h-1/3"> {/* CartSummary için yarı genişlik */}
+                    <div className="flex lg:w-1/3 sm:w-full justify-center text-center"> {/* CartSummary için yarı genişlik */}
                         <CartSummary />
                     </div>
                 </div>

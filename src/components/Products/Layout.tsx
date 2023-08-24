@@ -11,7 +11,6 @@ interface Props {
 const Layout: React.FC<Props> = ({ children }) => {
     return (
         <>
-            <SearchBar />
             <main>{children}</main>
         </>
     )

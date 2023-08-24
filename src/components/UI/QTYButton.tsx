@@ -9,7 +9,7 @@ const QTYButton = () => {
         qty - 1 < 1 ? 1 : setQty(qty - 1);
     }
     return (
-        <div className="h-8 flex justify-center items-center mx-auto w-4/5">
+        <div className="h-8 flex justify-center items-center mx-auto w-1/2">
             <div className="flex flex-row justify-center h-10 w-full rounded-lg relative bg-transparent mt-1">
                 <button data-action="decrement" className=" bg-gray-300 text-gray-600 hover:text-gray-700 
                 hover:bg-gray-400 h-full w-20 m-auto rounded-l cursor-pointer outline-none" onClick={handlerMinusButtonClick}>

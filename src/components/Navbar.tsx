@@ -43,7 +43,7 @@ const Navbar: React.FC<Props> = ({ categories }) => {
               {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
             </select>
           </div>
-          <Link href="/"  className="transition delay-150 hover:text-primary-green 
+          <Link href="/" className="transition delay-150 hover:text-primary-green 
             ease-linear hover:border-b hover:border-primary-gray 
             text-center hover:animate-bounce">Hakkımızda</Link>
           <div className="hidden lg:flex lg:border-e-2 lg:border-s-2 text-center">
@@ -100,11 +100,15 @@ const Navbar: React.FC<Props> = ({ categories }) => {
               </button>
               <button type="button" className="rounded text-center border items-center w-20 h-14 hover:bg-primary-green transition
               duration-75 hover:text-white">
-                <AiOutlineUser className="mx-auto" />
+                <Link href="/user">
+                  <AiOutlineUser className="mx-auto" />
+                </Link>
               </button>
               <button type="button" className="rounded text-center border items-center w-20 h-14 hover:bg-primary-green transition
               duration-75 hover:text-white">
-                <AiOutlineShoppingCart className="mx-auto" />
+                <Link href="/cart">
+                  <AiOutlineShoppingCart className="mx-auto" />
+                </Link>
               </button>
             </div>
           </div>

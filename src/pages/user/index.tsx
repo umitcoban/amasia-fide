@@ -3,11 +3,12 @@ import UserProfile, { Props as UserProfilePageProps } from "@/components/User/Us
 import { ApiResponseModel } from "@/models/authModel";
 import { UserDTO } from "@/models/user.entity";
 import { setUser } from "@/redux/slices/userSlice";
-import { RootState } from "@/redux/store";
 import { getUserById } from "@/services/user.service";
+import { getErrorMessageWithStatus } from "@/utils/errorMessage";
+import { AxiosError } from "axios";
 import { GetServerSideProps } from 'next';
 import { parseCookies } from "nookies";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const UserPage: React.FC<UserProfilePageProps> = (props: UserProfilePageProps) => {
     const dispatch = useDispatch();
@@ -33,55 +34,67 @@ const UserPage: React.FC<UserProfilePageProps> = (props: UserProfilePageProps) =
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const cookies = parseCookies(context);
-    const token = cookies['token'];
-    const response = await getUserById(25, token);
-
-    const data: UserProfilePageProps = {
-        chartData: {
-            labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs'],
-            datasets: [
+    try {
+        const cookies = parseCookies(context);
+        const token = cookies['token'];
+        const response = await getUserById(25, token);
+        const data: UserProfilePageProps = {
+            chartData: {
+                labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs'],
+                datasets: [
+                    {
+                        label: 'Aylık Satışlar',
+                        data: [12, 19, 3, 5, 2],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            profileData: [
                 {
-                    label: 'Aylık Satışlar',
-                    data: [12, 19, 3, 5, 2],
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
+                    changesNumber: 25,
+                    description: "test",
+                    val: "30"
                 },
+                {
+                    changesNumber: 25,
+                    description: "test",
+                    val: "30"
+                },
+                {
+                    changesNumber: 25,
+                    description: "test",
+                    val: "30"
+                },
+                {
+                    changesNumber: 25,
+                    description: "test",
+                    val: "30"
+                }
             ],
-        },
-        profileData: [
-            {
-                changesNumber: 25,
-                description: "test",
-                val: "30"
-            },
-            {
-                changesNumber: 25,
-                description: "test",
-                val: "30"
-            },
-            {
-                changesNumber: 25,
-                description: "test",
-                val: "30"
-            },
-            {
-                changesNumber: 25,
-                description: "test",
-                val: "30"
-            }
-        ],
-        userData: response.data
-    }
-    return {
-        props: {
-            profileData: data.profileData,
-            chartData: data.chartData,
             userData: response.data
         }
-    }
+        return {
+            props: {
+                profileData: data.profileData,
+                chartData: data.chartData,
+                userData: response.data
+            }
+        }
+    } catch (error: any) {
+        let errorMessage = "Beklenmedik bir hata oluştu lütfen daha sonra tekrar deneyin!";
 
+        if (error && error.isAxiosError) {
+            errorMessage = getErrorMessageWithStatus(error.response.status);
+        }
+        return {
+            redirect: {
+                destination: `/auth?error=${encodeURIComponent(errorMessage)}`,
+                permanent: false
+            }
+        }
+    }
 }
 
 export default UserPage;

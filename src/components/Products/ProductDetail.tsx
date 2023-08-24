@@ -17,7 +17,7 @@ interface product {
 const ProductDetail = () => {
     const [item, setItem] = useState<product | null>(null);
     const router = useRouter();
-    const {id} = router.query;
+    const { id } = router.query;
 
     useEffect(() => {
         if (typeof id === 'string') {
@@ -30,7 +30,7 @@ const ProductDetail = () => {
         } else {
             // Handle case when id is an array or something else
         }
-    },[id])
+    }, [id])
 
     return (
         <section className="text-gray-700 body-font overflow-hidden bg-white">
@@ -38,7 +38,7 @@ const ProductDetail = () => {
                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
                     <Image alt="ecommerce"
                         className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200 hover:scale-110 transition duration-200"
-                        src={item?.image || ""} width={200} height={48}/>
+                        src={item?.image || ""} width={200} height={48} />
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                         <h2 className="text-sm title-font text-gray-500 tracking-widest">Amasia-Fide</h2>
                         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{item?.name}</h1>
@@ -82,17 +82,19 @@ const ProductDetail = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex">
-                            <span className="title-font font-medium text-2xl text-gray-900">${item?.price}</span>
-                            <QTYButton />
-                        </div>
-                        <div className="flex justify-center items-center space-x-24 mt-8">
-                            <button className="w-36 h-12 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
-                                <AiOutlineShoppingCart className="w-6 h-6" />
-                            </button>
-                            <button className="w-36 h-12 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
-                                <AiFillHeart className="w-5 h-5" />
-                            </button>
+                        <div className="text-center">
+                            <div className="flex">
+                                <span className="title-font font-medium text-2xl text-center w-1/5 text-gray-900">${item?.price}</span>
+                                <QTYButton />
+                            </div>
+                            <div className="flex justify-center items-center space-x-24 mt-8">
+                                <button className="w-36 h-12 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
+                                    <AiOutlineShoppingCart className="w-6 h-6" />
+                                </button>
+                                <button className="w-36 h-12 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500">
+                                    <AiFillHeart className="w-5 h-5" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
