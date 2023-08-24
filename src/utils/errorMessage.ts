@@ -1,7 +1,7 @@
 
 export const getErrorMessageWithStatus = (status: number): string => {
     let message = "";
-
+    console.log(status);
     switch (status) {
         case 401:
             message = "Yetkilendirme hatası lütfen giriş yapın";

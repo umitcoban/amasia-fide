@@ -84,10 +84,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         }
     } catch (error: any) {
         let errorMessage = "Beklenmedik bir hata oluştu lütfen daha sonra tekrar deneyin!";
-
         if (error && error.isAxiosError) {
             errorMessage = getErrorMessageWithStatus(error.response.status);
         }
+        console.log(error.response);
         return {
             redirect: {
                 destination: `/auth?error=${encodeURIComponent(errorMessage)}`,
