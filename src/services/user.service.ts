@@ -6,3 +6,8 @@ export const getUserById = async (id: number, token:string): Promise<ApiResponse
     const response = await api.get<ApiResponseModel<UserDTO>>(`/users/${id}`, { headers: { Authorization: `Bearer ${token}` } });
     return response.data;
 }
+
+export const getProfileByToken = async (token:string): Promise<ApiResponseModel<UserDTO>> => {
+    const response = await api.get<ApiResponseModel<UserDTO>>(`/users/profile`, { headers: { Authorization: `Bearer ${token}` } });
+    return response.data;
+}

@@ -3,7 +3,7 @@ import UserProfile, { Props as UserProfilePageProps } from "@/components/User/Us
 import { ApiResponseModel } from "@/models/authModel";
 import { UserDTO } from "@/models/user.entity";
 import { setUser } from "@/redux/slices/userSlice";
-import { getUserById } from "@/services/user.service";
+import { getProfileByToken } from "@/services/user.service";
 import { getErrorMessageWithStatus } from "@/utils/errorMessage";
 import { AxiosError } from "axios";
 import { GetServerSideProps } from 'next';
@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const cookies = parseCookies(context);
         const token = cookies['token'];
-        const response = await getUserById(25, token);
+        const response = await getProfileByToken(token);
         const data: UserProfilePageProps = {
             chartData: {
                 labels: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs'],
